@@ -145,23 +145,14 @@ class Stagehand_DirectoryScanner
     }
 
     // }}}
-    // {{{ recursivelyScans()
+    // {{{ setRecursivelyScans()
 
     /**
+     * @param boolean $recursivelyScans
      */
-    public function recursivelyScans()
+    public function setRecursivelyScans($recursivelyScans)
     {
-        $this->recursivelyScans = true;
-    }
-
-    // }}}
-    // {{{ notRecursivelyScans()
-
-    /**
-     */
-    public function notRecursivelyScans()
-    {
-        $this->recursivelyScans = false;
+        $this->recursivelyScans = $recursivelyScans;
     }
 
     // }}}
