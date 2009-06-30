@@ -155,6 +155,28 @@ class Stagehand_DirectoryScanner
         $this->isRecursive = $isRecursive;
     }
 
+    // }}}
+    // {{{ addExclude()
+
+    /**
+     * @param string $exclude
+     */
+    public function addExclude($exclude)
+    {
+        $this->excludes[] = $exclude;
+    }
+
+    // }}}
+    // {{{ addInclude()
+
+    /**
+     * @param string $include
+     */
+    public function addInclude($include)
+    {
+        $this->includes[] = $include;
+    }
+
     /**#@-*/
 
     /**#@+
