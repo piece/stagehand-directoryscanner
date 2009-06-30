@@ -67,8 +67,16 @@ class Stagehand_DirectoryScanner
      * @access private
      */
 
-    private $excludes;
-    private $includes;
+    private $excludes = array('^CVS$',
+                              '^.svn',
+                              '^.git',
+                              '\.swp$',
+                              '~$',
+                              '\.bak$',
+                              '^#.+#$',
+                              '^.#'
+                              );
+    private $includes = array();
     private $isRecursive = false;
     private $callback;
 
@@ -89,16 +97,6 @@ class Stagehand_DirectoryScanner
     public function __construct($callback)
     {
         $this->callback = $callback;
-        $this->excludes = new ArrayObject(array('^CVS$',
-                                                 '^.svn',
-                                                 '^.git',
-                                                 '\.swp$',
-                                                 '~$',
-                                                 '\.bak$',
-                                                 '^#.+#$',
-                                                 '^.#')
-                                           );
-        $this->includes = new ArrayObject();
     }
 
     // }}}
