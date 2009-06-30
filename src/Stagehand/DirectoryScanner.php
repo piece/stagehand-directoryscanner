@@ -155,28 +155,6 @@ class Stagehand_DirectoryScanner
         $this->isRecursive = $isRecursive;
     }
 
-    // }}}
-    // {{{ getExcludes()
-
-    /**
-     * @return ArrayObject
-     */
-    public function getExcludes()
-    {
-        return $this->excludes;
-    }
-
-    // }}}
-    // {{{ getIncludes()
-
-    /**
-     * @return ArrayObject
-     */
-    public function getIncludes()
-    {
-        return $this->includes;
-    }
-
     /**#@-*/
 
     /**#@+
