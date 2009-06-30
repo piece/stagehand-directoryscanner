@@ -135,11 +135,11 @@ class Stagehand_DirectoryScanner
                 }
             }
 
-            $element = $directory . DIRECTORY_SEPARATOR . $files[$i];
-            call_user_func($this->callback, $element);
+            $absoluteFilePath = $directory . DIRECTORY_SEPARATOR . $files[$i];
+            call_user_func($this->callback, $absoluteFilePath);
 
-            if (is_dir($element) && $this->recursivelyScans) {
-                $this->scan($element);
+            if (is_dir($absoluteFilePath) && $this->recursivelyScans) {
+                $this->scan($absoluteFilePath);
             }
         }
     }
