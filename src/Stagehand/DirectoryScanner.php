@@ -67,10 +67,10 @@ class Stagehand_DirectoryScanner
      * @access private
      */
 
-    private $_excludes;
-    private $_includes;
-    private $_isRecursive = false;
-    private $_callback;
+    private $excludes;
+    private $includes;
+    private $isRecursive = false;
+    private $callback;
 
     /**#@-*/
 
@@ -88,8 +88,8 @@ class Stagehand_DirectoryScanner
      */
     public function __construct($callback)
     {
-        $this->_callback = $callback;
-        $this->_excludes = new ArrayObject(array('^CVS$',
+        $this->callback = $callback;
+        $this->excludes = new ArrayObject(array('^CVS$',
                                                  '^.svn',
                                                  '^.git',
                                                  '\.swp$',
@@ -98,7 +98,7 @@ class Stagehand_DirectoryScanner
                                                  '^#.+#$',
                                                  '^.#')
                                            );
-        $this->_includes = new ArrayObject();
+        $this->includes = new ArrayObject();
     }
 
     // }}}
@@ -117,15 +117,15 @@ class Stagehand_DirectoryScanner
                 continue;
             }
 
-            foreach ($this->_excludes as $exclude) {
+            foreach ($this->excludes as $exclude) {
                 if (preg_match("/$exclude/", $files[$i])) {
                     continue 2;
                 }
             }
 
-            if (count($this->_includes)) {
+            if (count($this->includes)) {
                 $skips = true;
-                foreach ($this->_includes as $include) {
+                foreach ($this->includes as $include) {
                     if (preg_match("/$include/", $files[$i])) {
                         $skips = false;
                         break;
@@ -138,9 +138,9 @@ class Stagehand_DirectoryScanner
             }
 
             $element = $directory . DIRECTORY_SEPARATOR . $files[$i];
-            call_user_func($this->_callback, $element);
+            call_user_func($this->callback, $element);
 
-            if (is_dir($element) && $this->_isRecursive) {
+            if (is_dir($element) && $this->isRecursive) {
                 $this->scan($element);
             }
         }
@@ -154,7 +154,7 @@ class Stagehand_DirectoryScanner
      */
     public function setIsRecursive($isRecursive)
     {
-        $this->_isRecursive = $isRecursive;
+        $this->isRecursive = $isRecursive;
     }
 
     // }}}
@@ -165,7 +165,7 @@ class Stagehand_DirectoryScanner
      */
     public function getExcludes()
     {
-        return $this->_excludes;
+        return $this->excludes;
     }
 
     // }}}
@@ -176,7 +176,7 @@ class Stagehand_DirectoryScanner
      */
     public function getIncludes()
     {
-        return $this->_includes;
+        return $this->includes;
     }
 
     /**#@-*/
