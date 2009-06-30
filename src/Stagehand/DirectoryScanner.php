@@ -138,7 +138,7 @@ class Stagehand_DirectoryScanner
             $element = $directory . DIRECTORY_SEPARATOR . $files[$i];
             call_user_func($this->callback, $element);
 
-            if (is_dir($element) && $this->isRecursive) {
+            if (is_dir($element) && $this->recursivelyScans) {
                 $this->scan($element);
             }
         }
