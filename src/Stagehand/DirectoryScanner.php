@@ -77,7 +77,7 @@ class Stagehand_DirectoryScanner
                               '^.#'
                               );
     private $includes = array();
-    private $recursivelyScans = false;
+    private $recursivelyScans = true;
     private $callback;
 
     /**#@-*/
