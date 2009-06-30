@@ -77,7 +77,7 @@ class Stagehand_DirectoryScanner
                               '^.#'
                               );
     private $includes = array();
-    private $isRecursive = false;
+    private $recursivelyScans = false;
     private $callback;
 
     /**#@-*/
@@ -152,7 +152,7 @@ class Stagehand_DirectoryScanner
      */
     public function setIsRecursive($isRecursive)
     {
-        $this->isRecursive = $isRecursive;
+        $this->recursivelyScans = $isRecursive;
     }
 
     // }}}
