@@ -115,24 +115,26 @@ class Stagehand_DirectoryScanner
                 continue;
             }
 
+            $skips = false;
+
             foreach ($this->excludes as $exclude) {
                 if (preg_match("/$exclude/", $files[$i])) {
-                    continue 2;
+                    $skips = true;
+                    break;
                 }
             }
 
-            if (count($this->includes)) {
-                $skips = true;
+            if ($skips) {
                 foreach ($this->includes as $include) {
                     if (preg_match("/$include/", $files[$i])) {
                         $skips = false;
                         break;
                     }
                 }
+            }
 
-                if ($skips) {
-                    continue;
-                }
+            if ($skips) {
+                continue;
             }
 
             $absoluteFilePath = $directory . DIRECTORY_SEPARATOR . $files[$i];
