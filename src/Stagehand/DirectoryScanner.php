@@ -106,10 +106,26 @@ class Stagehand_DirectoryScanner
      * Scans the directory and invoke the callback.
      *
      * @param string $directory
+     * @throws Stagehand_DirectoryScanner_Exception
      */
     public function scan($directory)
     {
-        $files = scandir($directory);
+        Stagehand_LegacyError_PHPError::enableConversion(E_WARNING);
+        try {
+            $files = scandir($directory);
+        } catch (Stagehand_LegacyError_PHPError $e) {
+            Stagehand_LegacyError_PHPError::disableConversion();
+            throw new Stagehand_DirectoryScanner_Exception($e->getMessage());
+        }
+        Stagehand_LegacyError_PHPError::disableConversion();
+        if ($files === false) {
+            throw new Stagehand_DirectoryScanner_Exception(
+                'Failed to scan the directory [ ' .
+                $directory .
+                ' ], possible reasons are the directory is not found or not readable'
+                                                           );
+        }
+
         for ($i = 0, $count = count($files); $i < $count; ++$i) {
             if ($files[$i] == '.' || $files[$i] == '..') {
                 continue;
