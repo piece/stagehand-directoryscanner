@@ -67,18 +67,18 @@ class Stagehand_DirectoryScanner
      * @access private
      */
 
-    private $excludes = array('^CVS$',
-                              '^.svn',
-                              '^.git',
-                              '\.swp$',
-                              '~$',
-                              '\.bak$',
-                              '^#.+#$',
-                              '^.#'
-                              );
-    private $includes = array();
-    private $recursivelyScans = true;
-    private $callback;
+    protected $excludes = array('^CVS$',
+                                '^.svn',
+                                '^.git',
+                                '\.swp$',
+                                '~$',
+                                '\.bak$',
+                                '^#.+#$',
+                                '^.#'
+                                );
+    protected $includes = array();
+    protected $recursivelyScans = true;
+    protected $callback;
 
     /**#@-*/
 
