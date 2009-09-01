@@ -61,12 +61,6 @@ class Stagehand_DirectoryScanner
      * @access protected
      */
 
-    /**#@-*/
-
-    /**#@+
-     * @access private
-     */
-
     protected $excludes = array('^CVS$',
                                 '^.svn',
                                 '^.git',
@@ -79,6 +73,12 @@ class Stagehand_DirectoryScanner
     protected $includes = array();
     protected $recursivelyScans = true;
     protected $callback;
+
+    /**#@-*/
+
+    /**#@+
+     * @access private
+     */
 
     /**#@-*/
 
