@@ -61,14 +61,44 @@ class Stagehand_DirectoryScanner
      * @access protected
      */
 
-    protected $excludes = array('^CVS$',
-                                '^.svn',
-                                '^.git',
-                                '\.swp$',
+    /**
+     * The CVS excludes defined in rsync 3.0.5
+     */
+    protected $excludes = array('^RCS$',
+                                '^SCCS$',
+                                '^CVS$',
+                                '^CVS\.adm$',
+                                '^RCSLOG$',
+                                '^cvslog\.',
+                                '^tags$',
+                                '^TAGS$',
+                                '^\.make\.state$',
+                                '^\.nse_depinfo$',
                                 '~$',
+                                '^#',
+                                '^\.#',
+                                '^,',
+                                '^_\$',
+                                '\$$',
+                                '\.old$',
                                 '\.bak$',
-                                '^#.+#$',
-                                '^.#'
+                                '\.BAK$',
+                                '\.orig$',
+                                '\.rej$',
+                                '^\.del-',
+                                '\.a$',
+                                '\.olb$',
+                                '\.o$',
+                                '\.obj$',
+                                '\.so$',
+                                '\.exe$',
+                                '\.Z$',
+                                '\.elc$',
+                                '\.ln$',
+                                '^core$',
+                                '^\.svn$',
+                                '^\.git$',
+                                '^\.bzr$'
                                 );
     protected $includes = array();
     protected $recursivelyScans = true;
