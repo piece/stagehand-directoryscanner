@@ -61,48 +61,48 @@ class Stagehand_DirectoryScanner
      * @access protected
      */
 
+    protected $recursivelyScans = true;
+    protected $callback;
+
     /**
      * The CVS excludes defined in rsync 3.0.5
      */
-    protected $excludes = array('^RCS$',
-                                '^SCCS$',
-                                '^CVS$',
-                                '^CVS\.adm$',
-                                '^RCSLOG$',
-                                '^cvslog\.',
-                                '^tags$',
-                                '^TAGS$',
-                                '^\.make\.state$',
-                                '^\.nse_depinfo$',
-                                '~$',
-                                '^#',
-                                '^\.#',
-                                '^,',
-                                '^_\$',
-                                '\$$',
-                                '\.old$',
-                                '\.bak$',
-                                '\.BAK$',
-                                '\.orig$',
-                                '\.rej$',
-                                '^\.del-',
-                                '\.a$',
-                                '\.olb$',
-                                '\.o$',
-                                '\.obj$',
-                                '\.so$',
-                                '\.exe$',
-                                '\.Z$',
-                                '\.elc$',
-                                '\.ln$',
-                                '^core$',
-                                '^\.svn$',
-                                '^\.git$',
-                                '^\.bzr$'
-                                );
-    protected $includes = array();
-    protected $recursivelyScans = true;
-    protected $callback;
+    protected $cvsExcludes = array('^RCS$',
+                                   '^SCCS$',
+                                   '^CVS$',
+                                   '^CVS\.adm$',
+                                   '^RCSLOG$',
+                                   '^cvslog\.',
+                                   '^tags$',
+                                   '^TAGS$',
+                                   '^\.make\.state$',
+                                   '^\.nse_depinfo$',
+                                   '~$',
+                                   '^#',
+                                   '^\.#',
+                                   '^,',
+                                   '^_\$',
+                                   '\$$',
+                                   '\.old$',
+                                   '\.bak$',
+                                   '\.BAK$',
+                                   '\.orig$',
+                                   '\.rej$',
+                                   '^\.del-',
+                                   '\.a$',
+                                   '\.olb$',
+                                   '\.o$',
+                                   '\.obj$',
+                                   '\.so$',
+                                   '\.exe$',
+                                   '\.Z$',
+                                   '\.elc$',
+                                   '\.ln$',
+                                   '^core$',
+                                   '^\.svn$',
+                                   '^\.git$',
+                                   '^\.bzr$'
+                                   );
 
     /**#@-*/
 
@@ -123,10 +123,19 @@ class Stagehand_DirectoryScanner
      * Sets the callback to the properties.
      *
      * @param callback $callback
+     * @param boolean  $useCVSExcludes
      */
-    public function __construct($callback)
+    public function __construct($callback, $useCVSExcludes = true)
     {
         $this->callback = $callback;
+        $this->accessControl = Stagehand_AccessControl::denyAllow();
+        $this->addExclude('^\.$');
+        $this->addExclude('^\.\.$');
+        if ($useCVSExcludes) {
+            foreach ($this->cvsExcludes as $cvsExclude) {
+                $this->addExclude($cvsExclude);
+            }
+        }
     }
 
     // }}}
@@ -157,29 +166,7 @@ class Stagehand_DirectoryScanner
         }
 
         for ($i = 0, $count = count($files); $i < $count; ++$i) {
-            if ($files[$i] == '.' || $files[$i] == '..') {
-                continue;
-            }
-
-            $skips = false;
-
-            foreach ($this->excludes as $exclude) {
-                if (preg_match("/$exclude/", $files[$i])) {
-                    $skips = true;
-                    break;
-                }
-            }
-
-            if ($skips) {
-                foreach ($this->includes as $include) {
-                    if (preg_match("/$include/", $files[$i])) {
-                        $skips = false;
-                        break;
-                    }
-                }
-            }
-
-            if ($skips) {
+            if ($this->accessControl->evaluate($files[$i]) == Stagehand_AccessControl_AccessState::DENY) {
                 continue;
             }
 
@@ -211,7 +198,7 @@ class Stagehand_DirectoryScanner
      */
     public function addExclude($exclude)
     {
-        $this->excludes[] = $exclude;
+        $this->accessControl->deny($exclude);
     }
 
     // }}}
@@ -222,7 +209,7 @@ class Stagehand_DirectoryScanner
      */
     public function addInclude($include)
     {
-        $this->includes[] = $include;
+        $this->accessControl->allow($include);
     }
 
     /**#@-*/
