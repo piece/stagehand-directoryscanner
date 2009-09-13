@@ -63,7 +63,7 @@ class Stagehand_DirectoryScanner
 
     protected $recursivelyScans = true;
     protected $callback;
-    protected $accessControl;
+    protected $denyAllow;
 
     /**
      * The CVS excludes defined in rsync 3.0.5
@@ -129,7 +129,7 @@ class Stagehand_DirectoryScanner
     public function __construct($callback, $useCVSExcludes = true)
     {
         $this->callback = $callback;
-        $this->accessControl = Stagehand_AccessControl::denyAllow();
+        $this->denyAllow = Stagehand_AccessControl::denyAllow();
         $this->addExclude('^\.$');
         $this->addExclude('^\.\.$');
         if ($useCVSExcludes) {
@@ -167,7 +167,7 @@ class Stagehand_DirectoryScanner
         }
 
         for ($i = 0, $count = count($files); $i < $count; ++$i) {
-            if ($this->accessControl->evaluate($files[$i]) == Stagehand_AccessControl_AccessState::DENY) {
+            if ($this->denyAllow->evaluate($files[$i]) == Stagehand_AccessControl_AccessState::DENY) {
                 continue;
             }
 
@@ -199,7 +199,7 @@ class Stagehand_DirectoryScanner
      */
     public function addExclude($exclude)
     {
-        $this->accessControl->deny($exclude);
+        $this->denyAllow->deny($exclude);
     }
 
     // }}}
@@ -210,7 +210,7 @@ class Stagehand_DirectoryScanner
      */
     public function addInclude($include)
     {
-        $this->accessControl->allow($include);
+        $this->denyAllow->allow($include);
     }
 
     /**#@-*/
