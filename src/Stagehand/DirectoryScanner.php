@@ -63,6 +63,7 @@ class Stagehand_DirectoryScanner
 
     protected $recursivelyScans = true;
     protected $callback;
+    protected $accessControl;
 
     /**
      * The CVS excludes defined in rsync 3.0.5
