@@ -75,7 +75,6 @@ $package->setPearinstallerDep('1.4.3');
 $package->addPackageDepWithChannel('required', 'Stagehand_AccessControl', 'pear.piece-framework.com', '0.1.0');
 $package->addPackageDepWithChannel('required', 'Stagehand_Autoload', 'pear.piece-framework.com', '0.3.0');
 $package->addPackageDepWithChannel('required', 'Stagehand_LegacyError', 'pear.piece-framework.com', '0.1.0');
-$package->addExtensionDep('required', 'pcre');
 $package->addMaintainer('lead', 'iteman', 'KUBO Atsuhiro', 'kubo@iteman.jp');
 $package->addGlobalReplacement('package-info', '@package_version@', 'version');
 $package->generateContents();

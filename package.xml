@@ -14,7 +14,7 @@
   <active>yes</active>
  </lead>
  <date>2009-09-17</date>
- <time>19:03:42</time>
+ <time>19:09:15</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -69,6 +69,9 @@ The first release of Stagehand_DirectoryScanner.
      <tasks:replace from="@package_version@" to="version" type="package-info" />
     </file>
    </dir> <!-- /tests -->
+   <file name="Stagehand_DirectoryScanner-1.0.0.tgz" role="data">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -94,9 +97,6 @@ The first release of Stagehand_DirectoryScanner.
     <channel>pear.piece-framework.com</channel>
     <min>0.1.0</min>
    </package>
-   <extension>
-    <name>pcre</name>
-   </extension>
   </required>
  </dependencies>
  <phprelease />
