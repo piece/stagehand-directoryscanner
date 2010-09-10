@@ -1,0 +1,5 @@
+#Sat Sep 11 00:41:13 JST 2010
+eclipse.preferences.version=1
+preload_script=/stagehand-directoryscanner/test/prepare.php
+test_folders=/stagehand-directoryscanner/test
+testing_framework=PHPUnit
